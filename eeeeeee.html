@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js">
+    </script>
+</head>
+
+<body>
+    <div>
+        <script>
+            var config = {
+                type: Phaser.CANVAS,
+                width: 1706,
+                height: 300,
+                parent: 'phaser-example',
+                backgroundColor: '#1d1d1d',
+                useTicker: true,
+                scene: {
+                    preload: preload,
+                    create: create,
+                    update: update
+                }
+            };
+
+            var bullet1;
+            var speed1;
+
+            var game = new Phaser.Game(config);
+
+            function preload() {
+                this.load.image('hornet', 'https://media.discordapp.net/attachments/1188757114064220231/1442439589439737976/hornet.png?ex=6925700d&is=69241e8d&hm=c750f26e1adc34bd886f77441bfd5586a8a006c05384e35c0cefea0bf7769b7f&=&format=webp&quality=lossless');
+                this.load.image('missile', 'https://media.discordapp.net/attachments/1188757114064220231/1442439589129228308/assets-amraam.png?ex=6925700d&is=69241e8d&hm=46b285f62847f3fa95d3eb4406e2820e988b1d6a24d4dee7cd6083bb78088f44&=&format=webp&quality=lossless');
+                this.load.image('smoke', 'https://media.discordapp.net/attachments/1188757114064220231/1442439589745655838/smoke.png?ex=6925700d&is=69241e8d&hm=072fc0f95d204b1734998661f77da7ef9f0a6876c96198628c3555b86f03e5a8&=&format=webp&quality=lossless');
+            }
+
+            function create() {
+                
+                this.add.image(10, 55, 'hornet').setOrigin(0);
+
+
+                bullet2 = this.add.image(64, 140, 'missile').setOrigin(0);
+
+
+                speed2 = Phaser.Math.GetSpeed(600, 0.48);
+
+                const particles2 = this.add.particles('smoke');
+
+                smokeEmitter = particles2.createEmitter({
+                    lifespan: 450,
+                    speed: { min: 10, max: 50 },
+                    scale: { start: 1, end: 1 },
+                    alpha: { start: 0.6, end: 0 },
+                    frequency: 2,
+                    follow: bullet2,
+                });
+
+                smokeEmitter = particles2.createEmitter({
+                    lifespan: 450,
+                    speed: { min: 10, max: 50 },
+                    scale: { start: 1, end: 1 },
+                    alpha: { start: 0.6, end: 0 },
+                    frequency: 10,
+                    follow: bullet2,
+                });
+            }
+
+
+            function update(time, delta) {
+                bullet2.x += speed2 * delta;
+
+
+                if (bullet2.x > 1640) {
+                    bullet2.x = 150;
+                }
+            }
+
+
+        </script>
+    </div>
+
+</body>
+
+</html>
